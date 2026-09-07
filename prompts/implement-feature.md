@@ -1,0 +1,1 @@
+Implement the requested feature using the current project architecture. Read relevant code first, preserve existing decisions unless change is necessary, keep the change minimal, update tests/docs when required, and report validation performed.

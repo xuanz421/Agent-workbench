@@ -1,0 +1,1 @@
+Investigate this bug before editing code. Reproduce or characterize it, trace the earliest incorrect state, form and test explicit hypotheses, identify the root cause, then implement the narrowest justified fix and validate regressions.

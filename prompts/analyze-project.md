@@ -1,0 +1,1 @@
+Analyze this repository before proposing changes. Build a concise map of its structure, entry points, core modules, tests, documentation, important conventions, and unresolved uncertainties. Distinguish confirmed facts from inference.
