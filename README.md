@@ -14,6 +14,12 @@ Generic engineering behavior lives here. Project-specific architecture, APIs, sc
 
 When deeper specialization is needed, use `project-bootstrap` to inspect the target project and generate only the project-local guidance that is justified by its current source, documentation, tests, and tooling.
 
+## Important file boundary
+
+`AGENTS.md` at the repository root is **only for maintaining Agent-Workbench itself**. It must not be copied, linked, or installed as generic guidance into unrelated projects.
+
+Reusable cross-project behavior lives under `rules/`, especially `rules/core.md`. Client adapters or installation scripts should consume reusable rules and skills rather than propagating the root `AGENTS.md`.
+
 ## Scope
 
 Agent-Workbench contains:
@@ -37,10 +43,10 @@ It intentionally does **not** try to become:
 
 ```text
 Agent-Workbench/
-├─ AGENTS.md
+├─ AGENTS.md          # repository-maintenance instructions only
 ├─ skills/
 ├─ agents/
-├─ rules/
+├─ rules/             # reusable cross-project rules
 ├─ prompts/
 ├─ templates/
 ├─ adapters/
