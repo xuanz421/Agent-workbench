@@ -13,6 +13,7 @@ It contains:
 - source-verification and coding rules
 - project-bootstrap tooling and templates
 - UI/design-system workflows
+- testing, dependency, security, migration, API, performance, release, and data-pipeline workflows
 - adapters for Codex, ZCode, and OpenCode
 
 It intentionally does **not** contain project-specific architecture, APIs, schemas, or domain knowledge.
@@ -27,6 +28,7 @@ Those should be generated or maintained inside each target project based on its 
 5. **One canonical workflow** — avoid maintaining separate duplicate logic for Codex, ZCode, and OpenCode.
 6. **Adapters are thin** — client-specific folders should only describe integration differences.
 7. **UI guidance is project-local** — Workbench provides design methods; each project owns its actual `DESIGN.md` and visual system.
+8. **Skills must earn their place** — use `skill-authoring` to avoid duplicate, overly narrow, or project-specific skills.
 
 ## Structure
 
@@ -44,7 +46,7 @@ Agent-Workbench/
 
 ## Core skill set
 
-### Engineering
+### Engineering foundation
 
 - `systematic-debugging`
 - `root-cause-analysis`
@@ -55,6 +57,22 @@ Agent-Workbench/
 - `documentation-sync`
 - `repository-analysis`
 - `project-bootstrap`
+
+### Quality, safety, and operations
+
+- `test-strategy` — choose the right test level based on risk instead of generating tests blindly.
+- `dependency-analysis` — analyze coupling, version constraints, deprecations, and upgrade blast radius.
+- `security-review` — review trust boundaries, injection, auth, secrets, unsafe I/O, subprocesses, and supply-chain risk.
+- `database-migrations` — plan schema/data migrations with locking, backfill, compatibility, rollback, and rollout concerns.
+- `performance-investigation` — measure first, locate bottlenecks, then optimize and re-measure.
+- `api-contract-review` — review public or cross-component interface compatibility and migration impact.
+- `release-readiness` — evaluate tests, config, migrations, observability, rollout risk, and recovery before release.
+- `data-pipeline-review` — review ingestion/ETL/indexing pipelines for correctness, idempotency, schema evolution, and recovery.
+- `agent-experience-review` — audit how easily agents can understand, run, debug, and safely modify a repository.
+
+### Workbench maintenance
+
+- `skill-authoring` — decide whether a workflow belongs in Workbench and create/review reusable `SKILL.md` files consistently.
 
 ### UI / Frontend
 
@@ -99,6 +117,28 @@ ui-review
 
 `DESIGN.md` is project-local. It records the visual language of the target project rather than global Workbench preferences. A starter template is available at `templates/DESIGN.md`.
 
+## Suggested engineering workflow
+
+```text
+repository-analysis / project-bootstrap
+        ↓
+planning
+        ↓
+implementation
+        ↓
+test-strategy
+        ↓
+implementation-review / code-review
+        ↓
+security-review / api-contract-review / database-migrations
+        ↓
+performance-investigation (when relevant)
+        ↓
+release-readiness
+```
+
+Not every task needs every skill. Invoke only the workflows relevant to the actual risk and scope.
+
 ## Status
 
-Current stage: v0.2 — UI workflow added.
+Current stage: v0.3 — engineering quality and delivery skills added.
