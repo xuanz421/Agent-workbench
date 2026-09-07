@@ -4,15 +4,15 @@
 
 ## 这个项目是做什么的
 
-Agent-Workbench 为 Codex、ZCode、OpenCode 等编程 Agent 提供一套可复用的基础能力，使它们进入不同仓库时能够更快建立正确的工作方式。
+Agent-Workbench 为 Codex、ZCode、OpenCode 等 Agent 提供一套可复用的基础能力，使它们进入不同仓库或长期创作项目时能够更快建立正确的工作方式。
 
 核心原则很简单：
 
 > **Workbench 提供方法，目标项目提供知识。**
 
-通用工程方法放在这里；项目自己的架构、API、Schema、命名规范、领域知识和专项工作流留在对应项目中。
+通用工程、UI 与创作方法放在这里；项目自己的架构、API、Schema、命名规范、世界观、角色设定、领域知识和专项工作流留在对应项目中。
 
-当某个项目需要更深的专项能力时，使用 `project-bootstrap` 读取该项目当前的源码、文档、测试和工具配置，再在目标项目内部生成真正有必要的专项规则或 Skill。
+当某个项目需要更深的专项能力时，使用 `project-bootstrap` 读取该项目当前的源码、文档、测试和工具配置，再在目标项目内部生成真正有必要的专项规则或 Skill。小说等长期创作项目也遵循同一原则：Workbench 提供通用写作方法，具体作品的设定与连续性资料保存在作品项目中。
 
 ## 一个重要的文件边界
 
@@ -28,8 +28,9 @@ Agent-Workbench 当前包含：
 
 - 通用工程 Skills
 - UI / 设计系统相关工作流
+- 通用小说创作与长篇连续性 Skills
 - 少量可复用 Agent 角色
-- 跨项目规则与源码验证原则
+- 跨项目规则与事实验证原则
 - 用于生成项目本地配置的模板
 - Codex、ZCode、OpenCode 等客户端的轻量适配层
 
@@ -39,6 +40,7 @@ Agent-Workbench 当前包含：
 - 所有项目共用的大型知识库
 - 复杂的 preset / registry 系统
 - 项目本地 `AGENTS.md`、`DESIGN.md` 或专项 Skill 的替代品
+- 存放具体小说世界观、角色卡和剧情设定的中央仓库
 - 为了管理 Workbench 本身而不断膨胀的基础设施项目
 
 ## 目录结构
@@ -100,6 +102,35 @@ frontend-design
 ui-review
 ```
 
+## 小说 / 创作 Skills
+
+- `story-development` — 故事 premise、主线结构、转折、升级与高潮设计
+- `character-arc` — 角色动机、矛盾、关系与人物弧线
+- `scene-writing` — 场景目标、冲突、视角、节奏、对白与场景落点
+- `continuity-tracking` — 长篇时间线、人物状态、知识、物品、伏笔与未解决线索追踪
+- `worldbuilding-consistency` — 世界规则及其政治、经济、文化、技术等后果的一致性检查
+- `prose-revision` — 在不破坏设定与作者意图的前提下调整文风、节奏、对白和表达
+
+这些 Skill 不保存任何具体作品设定。角色卡、世界观、章节状态、剧情锚点和连续性记录应该留在对应小说项目中。
+
+一个常见的长篇创作流程可以是：
+
+```text
+作品构思 / 现有设定
+        ↓
+story-development
+        ↓
+character-arc + worldbuilding-consistency
+        ↓
+scene-writing
+        ↓
+continuity-tracking
+        ↓
+prose-revision
+```
+
+不需要每次全部调用。结构问题使用结构 Skill，场景问题使用场景 Skill，长篇续写前优先检查连续性。
+
 ## 项目适配流程
 
 `project-bootstrap` 是 Workbench 与具体项目之间最重要的桥梁。
@@ -131,6 +162,7 @@ Agent-Workbench
 - 测试和发布方法
 - 源码与事实验证原则
 - UI / 设计系统方法
+- 通用小说结构、角色、场景、连续性与文字修订方法
 - 通用数据库、API、依赖、安全、数据工作流
 - 小型模板与客户端适配说明
 
@@ -139,6 +171,7 @@ Agent-Workbench
 - 某个项目独有的 API 和符号
 - 只属于一个代码库的 Schema
 - 某个项目当前架构的快照
+- 某部小说的世界观、人物、剧情和章节状态
 - 专项领域知识
 - 某项目独有的命名规范
 - 只在一个项目中成立的固定工作流
@@ -152,4 +185,4 @@ Workbench 应保持足够小，能够被人直接理解，也能够方便地复�
 
 只有当某项内容确实能改善跨项目 Agent 工作时，才应该加入这里。
 
-当前阶段：**v0.3 — 通用工程 + UI 工具箱，通过 `project-bootstrap` 在目标项目中进行专项化。**
+当前阶段：**v0.4 — 通用工程 + UI + 小说创作工具箱，通过项目本地资料承载专项知识与长期状态。**
