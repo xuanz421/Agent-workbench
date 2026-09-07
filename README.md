@@ -1,149 +1,155 @@
 # Agent-Workbench
 
-A lightweight repository for reusable agent workflows, rules, prompts, roles, templates, and client adapters.
+一个轻量、可复用的 Agent 工具箱，用于在不同项目和不同 Agent 客户端之间共享通用工作方法。
 
-## What this project is for
+## 这个项目是做什么的
 
-Agent-Workbench gives coding agents a reusable baseline for working across different repositories and harnesses such as Codex, ZCode, and OpenCode.
+Agent-Workbench 为 Codex、ZCode、OpenCode 等编程 Agent 提供一套可复用的基础能力，使它们进入不同仓库时能够更快建立正确的工作方式。
 
-Its core idea is simple:
+核心原则很简单：
 
-> **Workbench provides methods; the target project provides knowledge.**
+> **Workbench 提供方法，目标项目提供知识。**
 
-Generic engineering behavior lives here. Project-specific architecture, APIs, schemas, naming rules, domain knowledge, and recurring local workflows stay in the target repository.
+通用工程方法放在这里；项目自己的架构、API、Schema、命名规范、领域知识和专项工作流留在对应项目中。
 
-When deeper specialization is needed, use `project-bootstrap` to inspect the target project and generate only the project-local guidance that is justified by its current source, documentation, tests, and tooling.
+当某个项目需要更深的专项能力时，使用 `project-bootstrap` 读取该项目当前的源码、文档、测试和工具配置，再在目标项目内部生成真正有必要的专项规则或 Skill。
 
-## Important file boundary
+## 一个重要的文件边界
 
-`AGENTS.md` at the repository root is **only for maintaining Agent-Workbench itself**. It must not be copied, linked, or installed as generic guidance into unrelated projects.
+仓库根目录的 `AGENTS.md` **只用于维护 Agent-Workbench 本身**。
 
-Reusable cross-project behavior lives under `rules/`, especially `rules/core.md`. Client adapters or installation scripts should consume reusable rules and skills rather than propagating the root `AGENTS.md`.
+它不应该被复制、软链接或安装到其他项目中作为通用 Agent 规则。
 
-## Scope
+真正可跨项目复用的行为规则位于 `rules/`，尤其是 `rules/core.md`。客户端适配器和安装脚本应该使用这些可复用规则与 Skills，而不是传播根目录的 `AGENTS.md`。
 
-Agent-Workbench contains:
+## 项目范围
 
-- reusable engineering skills
-- UI/design workflows
-- a small set of reusable agent roles
-- cross-project rules and source-verification behavior
-- templates for project-local agent guidance
-- thin integration adapters for supported agent harnesses
+Agent-Workbench 当前包含：
 
-It intentionally does **not** try to become:
+- 通用工程 Skills
+- UI / 设计系统相关工作流
+- 少量可复用 Agent 角色
+- 跨项目规则与源码验证原则
+- 用于生成项目本地配置的模板
+- Codex、ZCode、OpenCode 等客户端的轻量适配层
 
-- a package manager
-- a universal project knowledge base
-- a large preset/registry system
-- a replacement for project-local `AGENTS.md`, `DESIGN.md`, or specialized skills
-- infrastructure that exists only to manage the Workbench itself
+它**不打算**成为：
 
-## Structure
+- Agent 包管理器
+- 所有项目共用的大型知识库
+- 复杂的 preset / registry 系统
+- 项目本地 `AGENTS.md`、`DESIGN.md` 或专项 Skill 的替代品
+- 为了管理 Workbench 本身而不断膨胀的基础设施项目
+
+## 目录结构
 
 ```text
 Agent-Workbench/
-├─ AGENTS.md          # repository-maintenance instructions only
-├─ skills/
-├─ agents/
-├─ rules/             # reusable cross-project rules
-├─ prompts/
-├─ templates/
-├─ adapters/
-└─ scripts/
+├─ AGENTS.md          # 仅用于维护本仓库
+├─ skills/            # 通用 / 半通用工作流
+├─ agents/            # 少量可复用 Agent 角色
+├─ rules/             # 可跨项目复用的行为规则
+├─ prompts/           # 通用任务提示词
+├─ templates/         # 项目本地配置模板
+├─ adapters/          # 各 Agent 客户端适配层
+└─ scripts/           # 安装 / 链接 / 同步脚本
 ```
 
-## Core engineering skills
+## 核心工程 Skills
 
-- `repository-analysis`
-- `project-bootstrap`
-- `planning`
-- `systematic-debugging`
-- `root-cause-analysis`
-- `code-review`
-- `implementation-review`
-- `refactoring`
-- `test-strategy`
-- `dependency-analysis`
-- `security-review`
-- `database-migrations`
-- `performance-investigation`
-- `api-contract-review`
-- `release-readiness`
-- `data-pipeline-review`
-- `documentation-sync`
-- `agent-experience-review`
-- `skill-authoring`
+- `repository-analysis` — 分析陌生仓库结构与关键入口
+- `project-bootstrap` — 理解目标项目，并按需生成项目本地专项能力
+- `planning` — 在实现前建立可执行计划
+- `systematic-debugging` — 系统性 Debug
+- `root-cause-analysis` — 根因分析
+- `code-review` — 代码审查
+- `implementation-review` — 实现完成后的整体复查
+- `refactoring` — 受控重构
+- `test-strategy` — 选择合适的测试策略
+- `dependency-analysis` — 依赖与升级影响分析
+- `security-review` — 安全边界与攻击面检查
+- `database-migrations` — 数据库迁移规划与风险控制
+- `performance-investigation` — 基于测量的性能调查
+- `api-contract-review` — API 合约与兼容性审查
+- `release-readiness` — 发布前检查
+- `data-pipeline-review` — 数据管线审查
+- `documentation-sync` — 代码与文档同步检查
+- `agent-experience-review` — 检查项目对 Agent 是否友好
+- `skill-authoring` — 创建和维护 Workbench Skill
 
-## UI / frontend skills
+## UI / 前端 Skills
 
-- `design-system-analysis`
-- `ui-project-bootstrap`
-- `frontend-design`
-- `ui-review`
+- `design-system-analysis` — 分析项目现有设计系统
+- `ui-project-bootstrap` — 生成或更新项目本地 `DESIGN.md`
+- `frontend-design` — 按项目视觉语言创建或重构 UI
+- `ui-review` — 审查视觉层级、一致性、响应式、状态与可访问性
 
-Typical UI flow:
+典型 UI 流程：
 
 ```text
-enter target frontend project
+进入目标前端项目
         ↓
 design-system-analysis
         ↓
 ui-project-bootstrap
         ↓
-project-local DESIGN.md
+项目本地 DESIGN.md
         ↓
 frontend-design
         ↓
 ui-review
 ```
 
-## Project adaptation
+## 项目适配流程
 
-`project-bootstrap` is the main bridge between Workbench and a concrete repository.
+`project-bootstrap` 是 Workbench 与具体项目之间最重要的桥梁。
 
 ```text
 Agent-Workbench
       ↓
-load reusable methods
+加载通用方法
       ↓
-inspect target project
+读取目标项目
       ↓
-build a confirmed / inferred / unknown project model
+建立“已确认 / 合理推测 / 未知”的项目模型
       ↓
-decide whether specialization is actually needed
+判断是否真的需要专项化
       ↓
-reuse generic Workbench skills where possible
+能复用 Workbench 就直接复用
       ↓
-create only necessary project-local rules / skills / agents / DESIGN.md / AGENTS.md
+只在必要时生成项目本地 Rules / Skills / Agents / DESIGN.md / AGENTS.md
 ```
 
-Bootstrap should not generate a large local agent framework by default. If generic Workbench behavior is already enough, it should stop after understanding the project.
+`project-bootstrap` 不应该默认给每个项目生成一整套复杂 Agent 框架。如果现有通用能力已经足够，它在理解项目后就可以停止。
 
-## Repository boundary
+## 什么适合放进 Workbench
 
-Good candidates for this repository:
+适合：
 
-- debugging and investigation methods
-- planning and review workflows
-- testing and release methods
-- source-verification rules
-- UI/design-system methods
-- broadly reusable database, API, dependency, security, and data workflows
-- small templates and client integration guidance
+- Debug 与调查方法
+- 规划、实现与审查工作流
+- 测试和发布方法
+- 源码与事实验证原则
+- UI / 设计系统方法
+- 通用数据库、API、依赖、安全、数据工作流
+- 小型模板与客户端适配说明
 
-Keep these in the target project instead:
+不适合：
 
-- project-specific APIs and symbols
-- schemas unique to one codebase
-- architecture snapshots
-- domain facts
-- project naming rules
-- recurring workflows that only make sense for one repository
-- temporary debugging or implementation notes
+- 某个项目独有的 API 和符号
+- 只属于一个代码库的 Schema
+- 某个项目当前架构的快照
+- 专项领域知识
+- 某项目独有的命名规范
+- 只在一个项目中成立的固定工作流
+- 临时 Debug 记录或实现笔记
 
-## Current direction
+这些内容应该留在对应项目中。
 
-The Workbench should remain small enough to understand and easy enough to copy, link, or load into different agent environments. New content is added only when it materially improves cross-project agent work.
+## 当前方向
 
-Current stage: **v0.3 — generic engineering + UI toolbox, with project-local specialization through `project-bootstrap`.**
+Workbench 应保持足够小，能够被人直接理解，也能够方便地复制、链接或加载到不同 Agent 环境中。
+
+只有当某项内容确实能改善跨项目 Agent 工作时，才应该加入这里。
+
+当前阶段：**v0.3 — 通用工程 + UI 工具箱，通过 `project-bootstrap` 在目标项目中进行专项化。**
