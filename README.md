@@ -1,34 +1,37 @@
 # Agent-Workbench
 
-A repository for reusable, cross-project agent workflows, rules, prompts, and adapters.
+A lightweight repository for reusable agent workflows, rules, prompts, roles, templates, and client adapters.
+
+## What this project is for
+
+Agent-Workbench gives coding agents a reusable baseline for working across different repositories and harnesses such as Codex, ZCode, and OpenCode.
+
+Its core idea is simple:
+
+> **Workbench provides methods; the target project provides knowledge.**
+
+Generic engineering behavior lives here. Project-specific architecture, APIs, schemas, naming rules, domain knowledge, and recurring local workflows stay in the target repository.
+
+When deeper specialization is needed, use `project-bootstrap` to inspect the target project and generate only the project-local guidance that is justified by its current source, documentation, tests, and tooling.
 
 ## Scope
 
-Agent-Workbench provides **methods, not project knowledge**.
+Agent-Workbench contains:
 
-It contains:
-- universal engineering skills
-- semi-universal development workflows
-- reusable agent roles
-- source-verification and coding rules
-- project-bootstrap tooling and templates
-- UI/design-system workflows
-- testing, dependency, security, migration, API, performance, release, and data-pipeline workflows
-- adapters for Codex, ZCode, and OpenCode
+- reusable engineering skills
+- UI/design workflows
+- a small set of reusable agent roles
+- cross-project rules and source-verification behavior
+- templates for project-local agent guidance
+- thin integration adapters for supported agent harnesses
 
-It intentionally does **not** contain project-specific architecture, APIs, schemas, or domain knowledge.
-Those should be generated or maintained inside each target project based on its current state.
+It intentionally does **not** try to become:
 
-## Design principles
-
-1. **Universal first** — only keep content that is useful across multiple projects.
-2. **Project knowledge stays local** — WorldBox, NewEra, WBKB, or other specialized knowledge belongs in those repositories.
-3. **Generate specialization from the project** — use `project-bootstrap` to inspect a project and create local skills/rules when needed.
-4. **Source before assumption** — prefer source code, project docs, tests, and official documentation over model memory.
-5. **One canonical workflow** — avoid maintaining separate duplicate logic for Codex, ZCode, and OpenCode.
-6. **Adapters are thin** — client-specific folders should only describe integration differences.
-7. **UI guidance is project-local** — Workbench provides design methods; each project owns its actual `DESIGN.md` and visual system.
-8. **Skills must earn their place** — use `skill-authoring` to avoid duplicate, overly narrow, or project-specific skills.
+- a package manager
+- a universal project knowledge base
+- a large preset/registry system
+- a replacement for project-local `AGENTS.md`, `DESIGN.md`, or specialized skills
+- infrastructure that exists only to manage the Workbench itself
 
 ## Structure
 
@@ -44,62 +47,36 @@ Agent-Workbench/
 └─ scripts/
 ```
 
-## Core skill set
+## Core engineering skills
 
-### Engineering foundation
-
+- `repository-analysis`
+- `project-bootstrap`
+- `planning`
 - `systematic-debugging`
 - `root-cause-analysis`
-- `planning`
 - `code-review`
 - `implementation-review`
 - `refactoring`
+- `test-strategy`
+- `dependency-analysis`
+- `security-review`
+- `database-migrations`
+- `performance-investigation`
+- `api-contract-review`
+- `release-readiness`
+- `data-pipeline-review`
 - `documentation-sync`
-- `repository-analysis`
-- `project-bootstrap`
+- `agent-experience-review`
+- `skill-authoring`
 
-### Quality, safety, and operations
+## UI / frontend skills
 
-- `test-strategy` — choose the right test level based on risk instead of generating tests blindly.
-- `dependency-analysis` — analyze coupling, version constraints, deprecations, and upgrade blast radius.
-- `security-review` — review trust boundaries, injection, auth, secrets, unsafe I/O, subprocesses, and supply-chain risk.
-- `database-migrations` — plan schema/data migrations with locking, backfill, compatibility, rollback, and rollout concerns.
-- `performance-investigation` — measure first, locate bottlenecks, then optimize and re-measure.
-- `api-contract-review` — review public or cross-component interface compatibility and migration impact.
-- `release-readiness` — evaluate tests, config, migrations, observability, rollout risk, and recovery before release.
-- `data-pipeline-review` — review ingestion/ETL/indexing pipelines for correctness, idempotency, schema evolution, and recovery.
-- `agent-experience-review` — audit how easily agents can understand, run, debug, and safely modify a repository.
+- `design-system-analysis`
+- `ui-project-bootstrap`
+- `frontend-design`
+- `ui-review`
 
-### Workbench maintenance
-
-- `skill-authoring` — decide whether a workflow belongs in Workbench and create/review reusable `SKILL.md` files consistently.
-
-### UI / Frontend
-
-- `design-system-analysis` — discover the design system that actually exists in the target project.
-- `ui-project-bootstrap` — generate or update a project-local `DESIGN.md` from current project evidence.
-- `frontend-design` — create or substantially revise UI while following the established design language.
-- `ui-review` — review hierarchy, consistency, responsiveness, accessibility, states, and design-system compliance.
-
-## Project specialization flow
-
-```text
-Agent-Workbench
-      ↓
-load reusable methods
-      ↓
-enter target project
-      ↓
-inspect source/docs/tests/current rules
-      ↓
-project-bootstrap
-      ↓
-generate project-local specialized skills/rules
-```
-
-Generated project-specific content should stay in the target repository and should not be copied back into Agent-Workbench unless it has clearly become reusable across projects.
-
-## UI workflow
+Typical UI flow:
 
 ```text
 enter target frontend project
@@ -115,30 +92,52 @@ frontend-design
 ui-review
 ```
 
-`DESIGN.md` is project-local. It records the visual language of the target project rather than global Workbench preferences. A starter template is available at `templates/DESIGN.md`.
+## Project adaptation
 
-## Suggested engineering workflow
+`project-bootstrap` is the main bridge between Workbench and a concrete repository.
 
 ```text
-repository-analysis / project-bootstrap
-        ↓
-planning
-        ↓
-implementation
-        ↓
-test-strategy
-        ↓
-implementation-review / code-review
-        ↓
-security-review / api-contract-review / database-migrations
-        ↓
-performance-investigation (when relevant)
-        ↓
-release-readiness
+Agent-Workbench
+      ↓
+load reusable methods
+      ↓
+inspect target project
+      ↓
+build a confirmed / inferred / unknown project model
+      ↓
+decide whether specialization is actually needed
+      ↓
+reuse generic Workbench skills where possible
+      ↓
+create only necessary project-local rules / skills / agents / DESIGN.md / AGENTS.md
 ```
 
-Not every task needs every skill. Invoke only the workflows relevant to the actual risk and scope.
+Bootstrap should not generate a large local agent framework by default. If generic Workbench behavior is already enough, it should stop after understanding the project.
 
-## Status
+## Repository boundary
 
-Current stage: v0.3 — engineering quality and delivery skills added.
+Good candidates for this repository:
+
+- debugging and investigation methods
+- planning and review workflows
+- testing and release methods
+- source-verification rules
+- UI/design-system methods
+- broadly reusable database, API, dependency, security, and data workflows
+- small templates and client integration guidance
+
+Keep these in the target project instead:
+
+- project-specific APIs and symbols
+- schemas unique to one codebase
+- architecture snapshots
+- domain facts
+- project naming rules
+- recurring workflows that only make sense for one repository
+- temporary debugging or implementation notes
+
+## Current direction
+
+The Workbench should remain small enough to understand and easy enough to copy, link, or load into different agent environments. New content is added only when it materially improves cross-project agent work.
+
+Current stage: **v0.3 — generic engineering + UI toolbox, with project-local specialization through `project-bootstrap`.**
