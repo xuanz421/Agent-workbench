@@ -1,49 +1,29 @@
-# Agent-Workbench Core Rules
+# Agent-Workbench Repository Instructions
 
 ## Purpose
 
-Agent-Workbench is a lightweight, reusable agent toolbox for coding and technical work across different projects and harnesses.
+This file applies only when maintaining the `Agent-workbench` repository itself.
 
-It provides common methods and working behavior. It is not a package manager, a universal project knowledge base, or a replacement for project-local agent configuration.
+Agent-Workbench is a lightweight, reusable toolbox for coding and technical agents. It should remain project-agnostic and should not become a package manager, universal knowledge base, or framework whose main purpose is managing itself.
 
-## Working rules
+## Repository maintenance rules
 
-- Read existing code and documentation before proposing structural changes.
-- Do not invent APIs, classes, methods, file paths, commands, or runtime behavior.
-- Distinguish confirmed facts, reasonable inference, and unknown information.
-- Prefer actual source code, tests, project documents, and official documentation over model memory.
-- Preserve established project decisions unless evidence justifies changing them.
-- When changing an existing design, explain the reason, impact, and migration cost.
-- For bugs, identify the earliest incorrect state and likely root cause before patching symptoms.
-- After implementation, validate behavior and check regression risk.
-- Reuse an existing Skill, Rule, Prompt, Agent, or template before creating another one with overlapping responsibility.
-- Keep reusable guidance here; keep project-specific knowledge in the target project.
-- Prefer small, useful artifacts over infrastructure that exists only to manage the Workbench itself.
-
-## Repository boundary
-
-Good Workbench content is useful across multiple unrelated projects or provides a broadly reusable way to adapt to them.
-
-Do not add:
-
-- project-specific APIs
-- project-specific schemas
-- project-specific architecture snapshots
-- domain facts tied to one codebase
-- temporary debugging notes
-- client-specific duplicates of the same generic workflow
-- management infrastructure without a concrete recurring need
-
-Project-specific agent assets should be generated or maintained inside the target project, normally through `project-bootstrap` when specialization is justified.
+- Keep reusable methods here; keep project-specific knowledge in the target project.
+- Do not add project-specific APIs, schemas, architecture snapshots, domain facts, or temporary debugging notes.
+- Do not duplicate the same generic workflow for different clients; keep client-specific differences in adapters only.
+- Reuse an existing Skill, Rule, Prompt, Agent, or template before creating another artifact with overlapping responsibility.
+- Prefer the smallest useful artifact over unnecessary management infrastructure.
+- Before adding a new Skill, verify that it is reusable across unrelated projects or is a broadly reusable semi-universal capability.
+- When a capability becomes project-specific, generate or maintain it in the target project instead of extending Workbench with stale project knowledge.
 
 ## Design test for new content
 
-Before adding something, ask:
+Before adding something to this repository, ask:
 
 1. Will unrelated projects reuse this?
-2. Is this a method rather than project knowledge?
+2. Is this a reusable method rather than project knowledge?
 3. Does an existing artifact already cover the responsibility?
-4. Is this the smallest useful form: Rule, Prompt, Skill, Agent, or template?
-5. Does it improve how agents actually work, rather than only making the repository look more complete?
+4. Is this the smallest useful form: Rule, Prompt, Skill, Agent, template, or adapter?
+5. Does it improve how agents actually work rather than only making the repository look more complete?
 
-If the answer indicates project-specific or management-only content, keep it out of Agent-Workbench.
+If not, keep it out of Agent-Workbench.
