@@ -102,6 +102,10 @@ frontend-design
 ui-review
 ```
 
+## 游戏模组实机验证
+
+- `worldbox-mod-testing` — 调用 WorldBox 与 NML 测试实例，核验源码加载、玩法交互、存读档、界面截图及报告；具体模组的命令和配置留在目标项目。
+
 ## 小说 / 创作 Skills
 
 - `story-development` — 故事 premise、主线结构、转折、升级与高潮设计

@@ -1,0 +1,4 @@
+interface:
+  display_name: "世界盒子模组实机测试"
+  short_description: "调用独立测试实例，核验源码加载、玩法交互、界面截图与验收报告"
+  default_prompt: "使用 $worldbox-mod-testing 对当前 WorldBox 模组运行必要的实机验证，并汇报证据与未测边界。"
